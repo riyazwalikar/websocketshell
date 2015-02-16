@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript">
+function wsstatus(){
+if ("WebSocket" in window)
+  {
+     	document.getElementById("m").innerHTML=('WebSockets supported!');
+	}
+}
+
+function printstatus(msg)
+{
+	document.getElementById("m").innerHTML += '<br />' + msg;
+}
+
+function clearstatus()
+{
+	document.getElementById("m").innerHTML = '';
+}
+
+function WebSocketShell()
+{
+  if ("WebSocket" in window)
+  {
+	 var server = "localhost:9998/server"
+     var ws = new WebSocket("ws://" + server);
+	 printstatus ('Connecting to ' + server);
+	 
+     ws.onopen = function()
+     {
+		printstatus ('Connected!')
+        ws.send(document.getElementById('in').value);
+        printstatus('Command sent.. Waiting for server..')
+     };
+     ws.onmessage = function (evt) 
+     { 
+        var received_msg = evt.data;
+		clearstatus();
+        printstatus(received_msg);
+     };
+     
+	 ws.onclose = function(a)
+     { 
+		clearstatus();
+		printstatus('Connection could not be estabilished. Closing websocket.');
+	 };
+	 
+  }
+  else
+  {
+     printstatus("WebSocket NOT supported by your Browser!");
+  }
+}
+</script>
+</head>
+<body onload="wsstatus()">
+<div id="sse"><p>
+<b>Enter command: </b><input type="text" id="in" name="in" />
+<button onclick="WebSocketShell()">Execute!</button></p>
+</div>
+<p><b>Status: </b></p>
+<pre><div id="m"></div></pre>
+</body>
+</html>
