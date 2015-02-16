@@ -21,7 +21,7 @@ Usage
 To run the server on port 9998 (default in this code, can be changed):
 
 1. Get [pywebsocket] (https://code.google.com/p/pywebsocket/)
-2. Run python pywebsocket\mod_pywebsocket\standalone.py -p 9998 -w ws_server
+2. Run `python pywebsocket\mod_pywebsocket\standalone.py -p 9998 -w ws_server`
 3. Open index.html in any browser that supports websockets. Latest Chrome/Firefox is good enough.
 4. Enter a (Windows) command like `ipconfig`
 5. Hit the Execute! button.
